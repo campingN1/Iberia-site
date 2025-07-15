@@ -1,18 +1,67 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Mi Web con Discord Login</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Discord Login Example</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 40px;
+      background-color: #2c2f33;
+      color: #ffffff;
+    }
+    #user-info img {
+      border-radius: 50%;
+      margin-top: 10px;
+    }
+    button {
+      padding: 10px 20px;
+      margin-top: 20px;
+      background-color: #7289da;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #5b6eae;
+    }
+  </style>
 </head>
 <body>
-  <h1>Bienvenido</h1>
+  <h1>Welcome to My Website</h1>
   <div id="user-info">
-    <button id="login">Iniciar sesión con Discord</button>
+    <button id="login">Login with Discord</button>
   </div>
 
   <script>
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    if (user) {
+      document.getElementById("user-info").innerHTML = `
+        <p>Logged in as <strong>${user.username}#${user.discriminator}</strong></p>
+        <img src="https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png" width="100" height="100" />
+        <br>
+        <button onclick="logout()">Logout</button>
+      `;
+    }
+
     document.getElementById("login").addEventListener("click", () => {
-      window.location.href = "https://discord.com/oauth2/authorize?client_id=1394780821096763422&response_type=code&redirect_uri=https%3A%2F%2Fiberia-site.github.io%2Fcallback.html&scope=identify";
+      const clientId = "1394780821096763422";
+      const redirectUri = encodeURIComponent("https://yourusername.github.io/callback.html");
+      const scope = "identify";
+      const responseType = "token";
+      const discordUrl = `https://discord.com/oauth2/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=${responseType}&scope=${scope}`;
+      window.location.href = discordUrl;
     });
+
+    function logout() {
+      localStorage.clear();
+      location.reload();
+    }
   </script>
 </body>
 </html>
