@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Mi Web con Discord Login</title>
+</head>
+<body>
+  <h1>Bienvenido</h1>
+  <div id="user-info">
+    <button id="login">Iniciar sesión con Discord</button>
+  </div>
+
+  <script>
+    document.getElementById("login").addEventListener("click", () => {
+      window.location.href = "https://discord.com/oauth2/authorize?client_id=1394780821096763422&response_type=code&redirect_uri=https%3A%2F%2Fiberia-site.github.io%2Fcallback.html&scope=identify";
+    });
+  </script>
+</body>
+</html>
